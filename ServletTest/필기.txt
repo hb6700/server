@@ -1,0 +1,90 @@
+## Server수업
+
+1. Servlet
+2. JSP
+3. Servlet + JSP + JDBC
+4. 프로젝트(규모가 제일 큼 : 3주) > item ???????
+5. Spring + JDBC(MyBatis)
+6. 프로젝트
+7. 엘라스틱서치
+8. Spring Boot + JPA
+9. 프로젝트
+10. 종강(ㅠ?)
+
+---
+
+Github Pages > 포폴 운영(~~소스, *.html)
+
+Github Pages → 웹 서버프로젝트 운영(X)
+
+웹 호스팅(JSP 호스팅) → X
+
+---
+
+## servlet
+
+- 자바 진영에서 웹 애플리케이션을 지원하기 위한 기술
+- 자바로 웹 사이트를 만드는 기술
+- 첫번째 웹 서버 기술 ~ 현재 모든 기술의 기반
+- 순수 자바 + 서블릿 규격
+- 자바 프로그램 → 웹 페이지 생산 → 동적 페이지
+
+<aside>
+💡 자바로 웹 사이트를 만든다?
+
+</aside>
+
+1. 정적 페이지
+    - 누가? 언제? → 항상 동일한 콘텐츠를 제공
+    - 캔커피
+2. 동적 페이지
+    - 누가? 언제? → 다른 콘텐츠를 제공
+    - 주소 동일? → 내용이 바뀐다?
+    - 주문(URL 요청) → 바리스타 커피 제조 → 제공
+    - 미리 준비된 상품 없음 → 주문 즉시 페이지를 생성 → 제공
+
+---
+
+Servlet Class
+
+- 바리스타 (알바생)
+- 클라이언트(브라우저)의 요청에 따라 동적으로 웹 페이지를 생성하는 클래스
+- 서블릿 기술을 구현한 실제 클래스
+
+---
+
+Servlet Class 작성 규칙
+
+1. 서블릿 클래스 선언
+    1. javax.servlet.Servlet 인터페이스를 구현한다.
+        - 복잡함
+        - 고비용
+        - 구현의 자유로움
+    2. javax.servlet.http.HttpServlet 클래스를 상속받는다.
+        - 단순함
+        - 저비용
+        - 🚨자주 사용‼️
+2. doGet/doPost 메소드 선언 → 예약된 이름의 메소드
+    - 둘 중 하나 선언 or 둘 다 선언
+    - 클라이언트(브라우저)의 요청이 들어오면 자동으로 호출되는 메소드
+    - “주문하기” 메소드
+    - 커피 만드는 메소드 → HTML 페이지를 만드는 메소드
+    - 메소드 작성 규칙
+        - 매게변수
+            1. java.servlet.http.HttpServletRequest
+            2. java.servlet.http.HttpServletResponse
+        - 예외 미루기
+            1. [java.io](http://java.io).IOException
+            2. java.servlet.ServletException
+3. 동적 HTML 페이지 작성 구현
+    - doGet/doPost 메소드의 구현부 → HTML 페이지를 만들기 위한 자바 코드 작성
+    - HttpServletResponse 객체의 getWriter() 메소드 호출 → PrintWriter 객체 반환
+    - PrintWriter 객체의 printXXX(”태그”) 메소드를 사용해서 HTML 페이지를 작성한다. → 동적으로 웹 헤이지 생산
+    - 페이지 완성 → 브라우저에게 반환 → 웹페이지를 출력
+
+---
+
+servlet 설정
+
+- 자바 클래스를 호출할 수 있는 가상 URL생성하기
+- 가상 주소 매핑  = 가상 URL + 서블릿
