@@ -34,26 +34,9 @@
 				<th>CHECK BOX</th>
 				<td>
 					<h3>취미 선택</h3>
-					<label><input type="checkbox" name="cb2" value="read">read</label>
-					<label><input type="checkbox" name="cb3" value="exercise">exercise</label>
-					<label><input type="checkbox" name="cb4" value="coding">coding</label>
-				</td>
-			</tr>
-			<tr>
-				<th>CHECK BOX</th>
-				<td>
-					<h3>취미 선택2</h3>
-					<label><input type="checkbox" name="cb5" value="read">read</label>
-					<label><input type="checkbox" name="cb5" value="exercise">exercise</label>
-					<label><input type="checkbox" name="cb5" value="coding">coding</label>
-				</td>
-			</tr>
-			<tr>
-				<th>RADIO BUTTON</th>
-				<td>
-					<h3>성별</h3>
-					<label><input type="radio" name="rb" value="male" checked>male</label>
-					<label><input type="radio" name="rb" value="female">female</label>
+					<label><input type="checkbox" name="cb2" value="read"></label>
+					<label><input type="checkbox" name="cb3" value="exercise"></label>
+					<label><input type="checkbox" name="cb4" value="coding"></label>
 				</td>
 			</tr>
 		</table>

@@ -48,14 +48,6 @@
 					<label><input type="checkbox" name="cb5" value="coding">coding</label>
 				</td>
 			</tr>
-			<tr>
-				<th>RADIO BUTTON</th>
-				<td>
-					<h3>성별</h3>
-					<label><input type="radio" name="rb" value="male" checked>male</label>
-					<label><input type="radio" name="rb" value="female">female</label>
-				</td>
-			</tr>
 		</table>
 		<div>
 			<input type="submit" value="send">

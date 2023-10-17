@@ -1,4 +1,3 @@
-<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -56,8 +55,6 @@
 	//동일한 name이 컨트롤이 여러개 전송될 때 
 	String[] cb5 = request.getParameterValues("cb5");
 	
-	//라디오 버튼
-	String rb = request.getParameter("rb");
 %>
 <!DOCTYPE html>
 <html>
@@ -88,11 +85,6 @@
 	
 	<h2>CHECK BOX</h2>
 	<div><%= Arrays.toString(cb5) %></div>
-
-	<h2>RADIO BUTTON</h2>
-	<div><%= rb %></div>
-	
-	
 	
 	<!-- https://releases.jquery.com/ -->
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>

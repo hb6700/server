@@ -52,8 +52,8 @@
 				<th>RADIO BUTTON</th>
 				<td>
 					<h3>성별</h3>
-					<label><input type="radio" name="rb" value="male" checked>male</label>
-					<label><input type="radio" name="rb" value="female">female</label>
+					<label><input type="radio" name="rb" value="male">read</label>
+					<label><input type="radio" name="rb" value="female">exercise</label>
 				</td>
 			</tr>
 		</table>
