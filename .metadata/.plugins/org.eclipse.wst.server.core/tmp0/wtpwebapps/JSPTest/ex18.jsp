@@ -86,7 +86,7 @@
 		<% for(File file : list) { %>
 		<div class= "item">
 			<img src="pic/<%= file.getName() %>">
-			<div>&times;</div>
+			<div title="delete" onclick="deleteImage('<%= file.getName() %>');">&times;</div>
 		</div> 
 		<% } %>
 	</div>

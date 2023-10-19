@@ -31,5 +31,14 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<!-- https://github.com/pinnpublic/cdn -->
 	<script src="http://pinnpublic.dothome.co.kr/cdn/example-min.js"></script>
+	<script>
+		function deleteImage(filename) {
+			/* alert(filename); */
+			
+			if(confirm('delete?')){
+				location.href = 'ex18_del.jsp?filename=' + filename;			
+			}
+		}
+	</script>
 </body>
 </html>
