@@ -14,8 +14,8 @@ public class Ex05_callableStatement {
 		//m1();
 		//m2();
 		//m3();
-		m4();
-		//m5();
+		//m4();
+		m5();
 		
 	}//main
 	
@@ -26,6 +26,25 @@ public class Ex05_callableStatement {
 		
 		try {
 			conn = DBUtil.open();
+			
+			String  sql = "{call procM5(?)}";
+			
+			stat = conn.prepareCall(sql);
+			
+			stat.registerOutParameter(1, OracleTypes.CURSOR);
+			
+			stat .executeQuery(sql);
+			
+			//오라클 커서 == 결과  테이블을 참조하는 참조 객체
+			//Result  set == 결과 테이블 탐색하는 참조 객체 0
+			//오라클 컷커서 == resultset			.ekddlfgks rw
+			rs = (ResultSet)stat.getObject(1);
+			
+			while (rs.next()) { 
+				
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

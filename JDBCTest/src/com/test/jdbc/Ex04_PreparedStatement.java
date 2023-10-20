@@ -1,3 +1,4 @@
+//Ex04_PreparedStatement.java
 package com.test.jdbc;
 
 import java.sql.Connection;
@@ -8,20 +9,15 @@ public class Ex04_PreparedStatement {
 
    public static void main(String[] args) {
       
-      
-      
       m1();
-      
-      
-      
-      
+   
    }
 
    private static void m1() {
 
-      //Statement vs PreparedStatement
-      //- Statement > 정적 SQL(매개변수 X)
-      //- PreparedStatement > 동적 SQL(매개변수 O)
+	   //Statement vs PreparedStatement
+	   //Statement : 정적 SQL(매개변수X)
+	   //PreparedStatement : 동적 SQL(매개변수O)
       
       //PreparedStatement
       //1. 매개변수 관리 용이
@@ -91,20 +87,17 @@ public class Ex04_PreparedStatement {
          pstat.setString(3, gender);
          pstat.setString(4, address);
          
-         int result=pstat.executeUpdate();
+         int result=pstat.executeUpdate(sql);
          
          System.out.println(result);
          
-         
          pstat.close();
          conn.close();
-         
-         
+
       } catch (Exception e) {
          e.printStackTrace();
       }
       
-      
-      
-   }
+   }//m1
+   
 }
