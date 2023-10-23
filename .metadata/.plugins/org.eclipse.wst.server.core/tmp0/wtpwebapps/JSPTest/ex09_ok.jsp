@@ -37,7 +37,7 @@
 <h1>결과</h1>
 
 <div>
-    <% for(int i=0; i< 개수; i++){ %>
+    <% for(int i=0; i< 10; i++){ %>
     <button class="btn"><%= text %></button>
     <% } %>
 </div>

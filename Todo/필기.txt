@@ -1,0 +1,19 @@
+##Todo list
+1. 주제
+2. 업무
+    - 할 일 쓰기
+    - 할 일 보기(목록)
+    - 할 일 수정하기
+    - 할 일 삭제하기
+3. DB
+    - Todo → script.sql
+4. 화면 (+ 페이지) → 눈에 보이는 페이지
+    - 할 일 보기(목록)페이지 : webapp → list.jsp
+    - 할 일 쓰기 페이지 : webapp → add.jsp, add_ok.jsp
+    - 할 일 수정 페이지 : webapp → editok.jsp
+    - 할 일 삭제 페이지 : webapp → delok.jsp
+    - 템플릿 페이지 : webapp → template.jsp
+5. 리소스
+    - 조각 페이지
+        - webapp → inc → header.jsp
+        - webapp → inc → asset.jsp

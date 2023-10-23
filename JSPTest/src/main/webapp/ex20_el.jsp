@@ -21,18 +21,19 @@
 	<h2>표현식</h2>
 	<div>a : <%= a %></div>
 	<div>b : <%= pageContext.getAttribute("b") %></div>
-	<div>b : <%= request.getAttribute("c") %></div>
-	
+	<div>c : <%= request.getAttribute("c") %></div>
 	
 	<!-- 
 	EL은 일반자원(지역변수, 멤버변수)은 출력할 수 없다. 
 	내장 객체(pageContext, request, session, application : 순서대로)안에 있는 데이터만 전용으로 출력하는 표현식 -> EL
 	-->
+	
 	<h2>EL</h2>
 	<div>a : ${a}</div>
-	<div>b : ${pageContext.getAttribute("b")}</div>
+	<div>b: ${pageContext.getAttribute("b")}</div> <!-- 안씀 -->
 	<div>c : ${request.getAttribute("c")}</div>
 	
+	<div>a : ${a}</div>
 	<div>b : ${b}</div>
 	<div>c : ${c}</div>
 	
