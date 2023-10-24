@@ -33,4 +33,10 @@
     <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
     <fullyQualifiedTypeName name="org.jsoup.Jsoup"/>
     <fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeOptions"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeDriver"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.edge.EdgeDriver"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.By"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
 </qualifiedTypeNameHistroy>
