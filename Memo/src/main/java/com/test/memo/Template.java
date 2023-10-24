@@ -10,14 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/template.do")
-public class Template extends HttpServlet{
+public class Template extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/temlpate.jsp");
-		dispatcher.forward(req, resp);
 		
+		
+		RequestDispatcher dispatcher 
+			= req.getRequestDispatcher("/WEB-INF/views/template.jsp");
+		dispatcher.forward(req, resp);		
 	}
 	
 }
+
+
+
+
+
+
+

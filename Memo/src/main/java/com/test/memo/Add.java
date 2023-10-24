@@ -1,8 +1,7 @@
 package com.test.memo;
 
-//자동 import한 번에  -> ctrl + shift + o
 import java.io.IOException;
- 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,13 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/add.do")
-public class Add extends HttpServlet{
-	//${primary_type_name}
+public class Add extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
+		//Add.java
+
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/add.jsp");
 		dispatcher.forward(req, resp);
-		
 	}
-}	
+
+}
+
+
+
+
+
+

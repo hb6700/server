@@ -4,14 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
-<style></style>
+<%@ include file="/WEB-INF/views/inc/asset.jsp" %>
+<style>
+	
+</style>
 </head>
 <body>
-	<!-- https://releases.jquery.com/ -->
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<!-- https://github.com/pinnpublic/cdn -->
-	<script src="http://pinnpublic.dothome.co.kr/cdn/example-min.js"></script>
+	<!-- template.jsp > add.jsp > del.jsp -->
+	<%@ include file="/WEB-INF/views/inc/header.jsp" %>	
+	
+	<form method="POST" action="/memo/delok.do">
+	<table class="vertical">
+		<tr>
+			<th>암호</th>
+			<td><input type="password" name="pw" required></td>
+		</tr>
+	</table>
+	<div>
+		<input type="button" value="돌아가기" onclick="location.href='/memo/list.do';">
+		<input type="submit" value="삭제하기">
+	</div>
+	<input type="hidden" name="seq" value="${seq}">
+	</form>
+	
+	<script>
+		
+	</script>
 </body>
 </html>
+
