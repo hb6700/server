@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Memo</title>
+<title>Title</title>
 <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
 <style></style>
 </head>
 <body>
-	<%@ include file="/inc/asset.jsp" %>
+	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<form method="POST" action="/memo/addok.do">
 		<table class="vertical">
 			<tr>

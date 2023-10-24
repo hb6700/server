@@ -21,7 +21,7 @@
 		<div class="message">
 			<div>아이디 : <%= session.getAttribute("auth") %></div>		
 			<div>이름 : <%= session.getAttribute("name") %></div>		
-			<div>등급 : <%= session.getAttribute("lv").toString().equals("1" ? "customer" : "Administrator")) %></div>
+			<div>등급: <%= session.getAttribute("lv").toString().equals("1") ? "일반회원" : "관리자" %></div>
 		</div>
 	<% } %>
 	

@@ -14,7 +14,7 @@ import com.test.memo.repository.MemoDAO;
 
 @WebServlet("/addok.do")
 public class AddOk extends HttpServlet {
-
+	 //${primary_type_name}
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -41,11 +41,8 @@ public class AddOk extends HttpServlet {
 		dto.setPw(pw);
 		dto.setMemo(memo);
 		
-		dao.add(dto);		//넘기는 데이터 2개 이상 -> DTO담아서
-		
-		
-		
-		
+//		dao.add(dto);		//넘기는 데이터 2개 이상 -> DTO담아서
+
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/addok.jsp");
 		dispatcher.forward(req, resp);
 

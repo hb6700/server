@@ -30,7 +30,7 @@
 	
 	<h2>EL</h2>
 	<div>a : ${a}</div>
-	<div>b: ${pageContext.getAttribute("b")}</div> <!-- 안씀 -->
+	<div>b : ${pageContext.getAttribute("b")}</div>
 	<div>c : ${request.getAttribute("c")}</div>
 	
 	<div>a : ${a}</div>
@@ -53,18 +53,21 @@
 	<div>b mod 10 = ${b mod 10}</div>
 	<hr>
 	<div>b &gt; 10 = ${b > 10}</div>
-	<div>b &lt; 10 = ${b < 10}</div>
 	<div>b &gt; 10 = ${b gt 10}</div>
+
+	<div>b &lt; 10 = ${b < 10}</div>
 	<div>b &lt; 10 = ${b lt 10}</div>
 	<hr>
 	<div>b &gt;= 10 = ${b >= 10}</div>
 	<div>b &gt;= 10 = ${b ge 10}</div>
+
 	<div>b &lt;= 10 = ${b <= 10}</div>
 	<div>b &lt;= 10 = ${b le 10}</div>
 	<hr>
 	<div>b == 20 = ${b == 20}</div>
-	<div>b != 20 = ${b != 20}</div>
 	<div>b == 20 = ${b eq 20}</div>
+
+	<div>b != 20 = ${b != 20}</div>
 	<div>b != 20 = ${b ne 20}</div>
 	<hr>
 	<!-- 
@@ -87,7 +90,7 @@
 	<div>${"문자열" == "문자열"}</div>
 	<div>${"문자열" == '문자열'}</div>
 	<hr>
-	<!-- 
+
 	<%
 		HashMap<String, Integer> score = new HashMap<String, Integer>();
 		score.put("kor", 100);
@@ -105,7 +108,7 @@
 	<div>영어 : ${score["eng"]}</div>
 	<div>영어 : ${score.math}</div>
 	<hr>
-	 -->
+
 
 	<h3>객체 출력(일반 객체)</h3>
 	<%

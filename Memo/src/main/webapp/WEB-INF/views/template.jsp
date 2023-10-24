@@ -9,11 +9,10 @@
     </style>
 </head>
 <body>
-
-
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="http://pinnpublic.dothome.co.kr/cdn/example-min.js">
-</script>
+	<!-- template.jsp-->
+	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
+	목록보기, 메모쓰기, 수정, 삭제 등..
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="http://pinnpublic.dothome.co.kr/cdn/example-min.js"></script>
 </body>
 </html>
