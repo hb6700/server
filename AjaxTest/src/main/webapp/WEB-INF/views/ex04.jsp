@@ -84,19 +84,21 @@
          $.ajax({
             type: 'GET',
             url: '/ajax/ex04data.do',
-            data: 'type=3',
+//          data: 'type=3',
+            data: 'type=4',
             dataType: 'xml',
             
             /* xml이 result에 반환되었음 */
             success: function(result) {
                
                //alret($(result).find('name').text());
-               $('#result2').append('<div>번호: ' + $(result).find('seq').text() + '</div>');
-               $('#result2').append('<div>이름: ' + $(result).find('name').text() + '</div>');
-               $('#result2').append('<div>암호: ' + $(result).find('pw').text() + '</div>');
-               $('#result2').append('<div>메모: ' + $(result).find('memo').text() + '</div>');
-               $('#result2').append('<div>날짜: ' + $(result).find('regdate').text() + '</div>');
+//                $('#result2').append('<div>번호: ' + $(result).find('seq').text() + '</div>');
+//                $('#result2').append('<div>이름: ' + $(result).find('name').text() + '</div>');
+//                $('#result2').append('<div>암호: ' + $(result).find('pw').text() + '</div>');
+//                $('#result2').append('<div>메모: ' + $(result).find('memo').text() + '</div>');
+//                $('#result2').append('<div>날짜: ' + $(result).find('regdate').text() + '</div>');
                
+               alert($(result).html());
             },
             error: function(a,b,c) {
                console.log(a,b,c);

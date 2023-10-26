@@ -31,13 +31,49 @@ public class Ex04Data extends HttpServlet {
          m2(req, resp);
       } else if (type.equals("3")) {
          m3(req, resp);
-      }
+      } else if (type.equals("4")) {
+         m4(req, resp);
+      } else if (type.equals("5")) {
+         m5(req, resp);
+      } else if (type.equals("6")) {
+         m6(req, resp);
+      } 
       
       //RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/ex04data.jsp");
       //dispatcher.forward(req, resp);
 
    }
-   private void m3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   
+	private void m6(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	
+	private void m5(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			
+	}
+	
+	private void m4(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//XML -> 여러 개의 메모 -> MemoDTO X N개 
+		AjaxDAO dao = new AjaxDAO();
+		ArrayList<MemoDTO> list = dao.listMemo();
+		resp.setContentType("text/xml");
+		resp.setCharacterEncoding("UTF-8");
+		
+		PrintWriter writer = resp.getWriter();
+		
+		//list -> XML형식의 문자열로 출력 
+		writer.println("<?xml version='1.0' encoding='UTF-8'?>");
+		writer.println("<list>");
+		for(MemoDTO dto : list) {
+			writer.println("<memo>");
+			writer.printf("<seq>%s</seq>", dto.getSeq());
+			writer.println("</memo>");			
+		}
+		
+		writer.close();
+	}
+	
+	private void m3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       
       AjaxDAO dao = new AjaxDAO();
       
