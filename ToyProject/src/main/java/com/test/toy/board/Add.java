@@ -1,4 +1,4 @@
-package com.test.toy.user;
+package com.test.toy.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,47 +9,54 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.test.toy.user.repository.UserDAO;
+import com.test.toy.board.model.BoardDTO;
+import com.test.toy.board.repository.BoardDAO;
 
-@WebServlet("/user/unregister.do")
-public class Unregister extends HttpServlet {
+@WebServlet("/board/add.do")
+public class Add extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//Unregister.java
+		//Add.java
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/unregister.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/add.jsp");
 		dispatcher.forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//UnregisterOk.java
+		//AddOk.java 역할
 		
-		//회원 탈퇴
-		//- delete(X)
-		//- update(O)
+		//1. 데이터 가져오기
+		//2. DB 작업 > insert
+		//3. 피드백
+		
+		HttpSession session = req.getSession();		
 		
 		//1.
-		String id = req.getSession().getAttribute("id").toString();
+		//req.setCharacterEncoding("UTF-8");
+		
+		String subject = req.getParameter("subject");
+		String content = req.getParameter("content");
 		
 		//2.
-		UserDAO dao = new UserDAO();
+		BoardDAO dao = new BoardDAO();
 		
-		int result = dao.unregister(id);
+		BoardDTO dto = new BoardDTO();
+		dto.setSubject(subject);
+		dto.setContent(content);
+		dto.setId(session.getAttribute("id").toString());
+		
+		int result = dao.add(dto);
 		
 		//3.
 		if (result == 1) {
-			
-			//회원 탈퇴 + 로그아웃
-			req.getSession().removeAttribute("id");
-			req.getSession().removeAttribute("name");
-			req.getSession().removeAttribute("lv");
-			
-			resp.sendRedirect("/toy/index.do");
+				
+			resp.sendRedirect("/toy/board/list.do");
 			
 		} else {
 			PrintWriter writer = resp.getWriter();
@@ -61,13 +68,6 @@ public class Unregister extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
 
 
 

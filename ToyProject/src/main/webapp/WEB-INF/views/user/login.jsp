@@ -7,7 +7,12 @@
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
-	
+	#form-list{
+		display: flex;
+	}
+	#form-list form {
+		margin-right: 5px;
+	}
 </style>
 </head>
 <body>
@@ -20,7 +25,7 @@
 		<table class="vertical">
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="id" id="id" required class="short"></td>
+				<td><input type="text" name="id" id="id" required class="short" autofocus></td>
 			</tr>
 			<tr>
 				<th>암호</th>
@@ -32,6 +37,31 @@
 			<button type="submit" class="login primary">로그인</button>
 		</div>
 		</form>
+		
+		<hr>
+		
+		<div id="form-list">
+			<form method="POST" action="/toy/user/login.do">
+				<input type="hidden" name="id" value="hong">
+				<input type="hidden" name="pw" value="1111">
+				<button type="submit" class="login primary">홍길동</button>
+			</form>
+			<form method="POST" action="/toy/user/login.do">
+				<input type="hidden" name="id" value="test">
+				<input type="hidden" name="pw" value="1111">
+				<button type="submit" class="login primary">테스트</button>
+			</form>
+			<form method="POST" action="/toy/user/login.do">
+				<input type="hidden" name="id" value="hahaha">
+				<input type="hidden" name="pw" value="1111">
+				<button type="submit" class="login primary">하하하</button>
+			</form>
+			<form method="POST" action="/toy/user/login.do">
+				<input type="hidden" name="id" value="admin">
+				<input type="hidden" name="pw" value="1111">
+				<button type="submit" class="login primary">관리자</button>
+			</form>
+		</div>
 		
 	</main>
 	
