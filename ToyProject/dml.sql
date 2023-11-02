@@ -28,8 +28,13 @@ select * from vwBoard;
 
 update tblBoard set regdate = regdate - 1 where seq <= 6;
 
-commit;
+select * from tblBoard where seq = 1;
 
+select * from tblUser;
+
+update tblUser set lv = 2 where id = 'admin';
+
+commit;
 
 
 

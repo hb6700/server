@@ -57,12 +57,15 @@
 		- View.java: 글보기
 		- Edit.java: 수정
 		- Del.java: 삭제
+		- Auth.java: 권한 확인
+		- Dummy.java: 더미 데이터
 	6. com.test.toy.board.repository
 		- BoardDAO.java
 	7. com.test.toy.board.model
 		- BoardDTO.java
 	8. com.test.toy.filter
 		- EncodingFilter.java
+		- AuthFilter.java
 - 뷰
 	1. views
 		a. 루트
@@ -112,12 +115,27 @@ Favicon
 
 
 
+게시판 CRUD
+
+
+
+권한 처리
+- 목록보기, 상세보기 > 비회원(O), 회원(O)
+- 글쓰기, 수정하기, 삭제하기 > 비회원(X), 회원(O)
+- 수정하기, 삭제하기 > 비회원(X), 회원(선택적 > 자기글만 가능)
+- 수정하기, 삭제하기 > 관리자(모든글에 가능)
+
+
+----------------------------------------------------------
+
+
+검색하기
 
 
 
 
-
-
+페이징
+- 다량의 게시물 > 한 화면 출력 불편 > 가상의 페이지 분할 > 나눠서 출력 행위
 
 
 
