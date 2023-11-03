@@ -49,7 +49,11 @@ public class Del extends HttpServlet {
 		//2.
 		BoardDAO dao = new BoardDAO();
 		
-		int result = dao.del(seq);
+		//달려있는 댓글들을 우선적으로 삭제(해줘야지 게시글을 지울수 있음)
+		dao.delCommentAll(seq);
+		
+		int result = dao.del(seq);			//댓글이 존재하면 문제가 생김
+		
 		
 		//3.
 		if (result == 1) {

@@ -36,5 +36,6 @@ update tblUser set lv = 2 where id = 'admin';
 
 commit;
 
+select * from tblComment;
 
 

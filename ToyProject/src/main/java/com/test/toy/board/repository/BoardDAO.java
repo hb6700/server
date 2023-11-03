@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import com.test.toy.DBUtil;
 import com.test.toy.board.model.BoardDTO;
+import com.test.toy.board.model.CommentDTO;
 
 public class BoardDAO {
 	
@@ -78,6 +79,8 @@ public class BoardDAO {
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setName(rs.getString("name"));
 				dto.setIsnew(rs.getInt("isnew"));
+				
+				dto.setCcnt(rs.getInt("ccnt"));
 				
 				list.add(dto);
 			}	
@@ -204,6 +207,108 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		
+		return 0;
+	}
+
+	public int addComment(CommentDTO dto) {
+		//queryParamNoReturn
+		try {
+			String sql = "insert into tblComment(seq, content, regdate, id, bseq) values(seqComment.nextVal, ? default, ?, ?)";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getContent());
+			pstat.setString(2, dto.getId());
+			pstat.setString(3, dto.getBseq());
+			
+			return pstat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public ArrayList<CommentDTO> listComment(String bseq) {
+		//queryParamListReturn
+		try {
+			String sql = "select c.*, (select name from tblUser where id =c.id) as name from tblComment c where bseq = ? order by seq desc";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, bseq);
+			
+			rs = pstat.executeQuery();
+			
+			ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+			
+			while (rs.next()){
+				
+				CommentDTO dto = new CommentDTO();
+				
+				dto.setSeq(rs.getString("seq"));
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setBseq(rs.getString("bseq"));
+				
+				dto.setName(rs.getString("name"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int delComment(String seq) {
+		
+		//queryParamNoReturn
+		try {
+			String sql = "delete form tblComment where seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+			
+			return pstat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public void delCommentAll(String seq) {
+
+		//queryParamNoReturn
+		try {
+			String sql = "delete form tblComment where bseq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+			
+			pstat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public int editComment(CommentDTO dto) {
+
+		//queryParamNoReturn
+		try {
+			String sql = "update tblComment set content = ? where seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getContent());
+			pstat.setString(2, dto.getSeq());
+			
+			return pstat.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

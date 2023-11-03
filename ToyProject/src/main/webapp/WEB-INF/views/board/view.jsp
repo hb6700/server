@@ -8,6 +8,16 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
 	#view tr:nth-child(4) { height: 100px; } 
+	
+	#add-comment td:nth-child(1){width: auto; text-align: center;}
+	#add-comment td:nth-child(2){width: 120px; text-align: center;}
+	
+	#list-comment td:nth-child(1){width: auto;}
+	#list-comment td:nth-child(2){width: 170px; text-align: center;}
+	
+	#list-comment td:nth-child(1) > div{display: flex; justify-content: space-between;}
+	#list-comment td:nth-child(1) > div > div:nth-child(2){font-size: 12px; color: #777;}	
+	
 </style>
 </head>
 <body>
@@ -41,6 +51,53 @@
 				<td>${dto.readcount}</td>
 			</tr>
 		</table>
+		
+		<!-- 댓글쓰기 -->
+		<c:if test="${not empty id}">
+			<form method="POST" action="/toy/board/comment.do">
+				<table id="add-comment">
+					<tr>
+						<td><input type="text" name="comment" id="comment" class="full"></td>
+						<td><button type="button" class="comment" id="btnComment">write comment</button></td>
+					</tr>
+				</table>		
+			</form>
+		</c:if>
+		
+		<!-- 댓글목록 -->
+		<table id="list-comment">
+			<tbody>
+				<!-- 
+				<tr>
+					<td><input type="text" name="ecomment" id="ecomment" class="long"></td>
+					<td>
+						<button type="button" class="edit">edit</button>
+						<button type="button" class="cancel">cancel</button>
+					</td>
+				</tr> 
+				-->
+				
+				<!-- 
+				<tr>
+					<td>
+						<div>
+							<div>댓글 내용입니다</div>
+							<div>2023-11-03 09:21:14</div>
+						</div>
+					</td>
+					<td>
+						<div>홍길동(hong)</div>
+						<div>
+							<button type="button" class="edit">update</button>
+							<button type="button" class="del">delete</button>
+						</div>
+					</td>
+				</tr> 
+				-->
+			</tbody>
+		</table>
+		
+		
 		<div>
 			<button type="button" class="back" onclick="location.href='/toy/board/list.do';">뒤로가기</button>
 			
@@ -54,7 +111,161 @@
 	</main>
 	
 	<script>
+		//댓글 쓰기 
+		$('#btnComment').click(function(){
+			$.ajax({
+				type: 'POST',
+				url: '/toy/board/comment.do',
+				//작성된 글 내용, 게시글(부모글)/  작성자->세션에 포함 
+				data: {
+					content:$('#comment').val(),
+					bseq: ${dto.seq}
+				},
+				dataType: 'json',
+				success: function(result){
+					//alert(result.result);
+					if(result.result == 1){
+						load();			//목록 새로고침
+					}
+					
+					$('#comment').val('');			//초기화 
+				},
+				error: function(a,b,c){
+					console.log(a,b,c);
+				}
+			});
+			
+			$('#comment').keydown(function(){
+				if(event.keyCode == 13){			//엔터(\n)
+					$('#btnComment').click();
+				}
+			});
+		});
 		
+		load();
+		
+		//댓글 목록 가져오기(ajax) > 화면에 출력
+		function load() {
+			
+			$.ajax({
+				type: 'GET',
+				url: '/toy/board/comment.do',
+				data: 'bseq=${dto.seq}',
+				dataType: 'json',
+				success: function(result) {
+					//result == 댓글 목록
+					
+					$('#list-comment tbody').html(''); //기존 내용 삭제
+					
+					$(result).each((index, item) => {
+						
+						//console.log(item);
+						
+						let temp = `
+							<tr>
+								<td>
+									<div>
+										<div>\${item.content}</div>
+										<div>\${item.regdate}</div>
+									</div>
+								</td>
+								<td>
+								  	<div>\${item.name}(\${item.id})</div>
+							`;
+							
+						if (item.id == '${id}') {
+						temp += `
+							  	<c:if test="${not empty id}">
+									<div>
+										<button type="button" class="edit"onclick="editComment(\${item.seq});">edit</button>
+										<button type="button" class="del" onclick="delComment(\${item.seq});">delete</button>
+									</div>					
+								</c:if>
+							`;
+						}
+							
+						temp += `
+								</td>
+							</tr>	
+								
+						`;
+						
+						$('#list-comment tbody').append(temp);
+						
+					});
+					
+				},
+				error: function(a,b,c){
+					console.log(a,b,c);
+				}
+			)};
+		}
+		
+		function delComment(seq){
+			//alert(seq);
+			if(confirm('delete?')){
+				$.ajax({
+					type: 'POST',
+					url: '/toy/board/delcomment.do',
+					data: 'seq=' + seq,
+					dataType: 'json',
+					success: function(result){
+						if(result.result == 1){
+							load();			//목록 새로고침 
+						}
+					},
+					error: function(a,b,c){
+						console.log(a,b,c);
+					}
+				});				
+			}
+		}
+		
+		function editComment(seq){
+			
+			//alert($(event.target).parent().parent().prev().children().eq(0).children().eq(0).text());
+			let val = $(event.target).parent().parent().prev().children().eq(0).children().eq(0).text();
+			
+			$('.edit-comment').remove();
+			
+			let temp = `
+				<tr class="edit-comment">
+					<td><input type="text" name="ecomment" id="ecomment" class="long" value="\${val}"></td>
+					<td>
+						<button type="button" class="edit" onclick="editCommentOk(\${seq});">edit</button>
+						<button type="button" class="cancel" onclick="$('.edit-comment').remove();">cancel</button>
+						
+					</td>
+				</tr>
+			`;
+			
+			$(event.target).parent().parent().parent().after(temp);
+		}
+		
+		function editCommentOk(){
+			
+			//alert($('#ecomment').val());
+			alert(seq);
+			
+			$.ajax({
+				type: 'POST',
+				url: '/toy/board/editcomment.do',
+				data: {
+					content: $('#ecomment').val(),
+					seq: seq
+				},
+				dataType: 'json',
+				success: function(result){
+					if(result.result == 1){
+						load();			//새로고침 
+					}
+				},
+				error: function(a,b,c){
+					console.log(a,b,c);
+				}
+			});
+			
+		}		
 	</script>
 </body>
 </html>
