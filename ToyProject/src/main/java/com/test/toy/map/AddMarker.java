@@ -19,6 +19,7 @@ public class AddMarker extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		//AddMarker.java
+		
 		//1/위도와 경도 받아오기
 		String lat = req.getParameter("lat");
 		String lng = req.getParameter("lng");

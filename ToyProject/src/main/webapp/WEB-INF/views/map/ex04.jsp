@@ -1,118 +1,279 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="/WEB-INF/views/inc/asset.jsp" %>
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
 <style>
-	#main{
+	#main {
 		display: flex;
-		
+		align-items: flex-start;
 	}
-	#main > table{
-		width : 384px;
+	#main table {
+		width: 384px;
 		margin: 0px 16px;
+		margin-bottom: 10px;
+	}
+	#list td{
+		cursor: pointer;
+	}
+	#list td span:last-child{
+		float: right;
+		displat: none;
+	}
+	#list td:hover span:last-child{
+		display: lnline;
 	}
 </style>
 </head>
 <body class="wide">
 	<!-- ex04.jsp -->
-	
-	<h1>Map<small>즐겨찾기</small></h1>
+	<h1>Map <small>즐겨찾기(CRD)</small></h1>
 	
 	<div id="main">
 		<div id="map" style="width:768px;height:400px;"></div>
 		<div>
-		
 		<table>
 			<tr>
 				<td>
 					<select name="category" id="category">
-						<option value="default">basic</option>
-						<option value="cafe">cafe</option>
-						<option value="food">restaurant</option>
-						<option value="private">private</option>
+						<option value="default">기본</option>
+						<option value="cafe">카페</option>
+						<option value="food">음식점</option>
+						<option value="private">개인</option>
 					</select>
 					<input type="text" name="name" id="name" class="middle">
-					<input type="button" name="add" id="btn">
+					<input type="button" value="추가하기" id="btn">
 				</td>
 			</tr>
-			<tr>
+		</table>
+		
+		<table id="list">
+			<tbody></tbody>
+			
+			<!-- <tr>
 				<td>AAA</td>
-			</tr>
-			<tr>
-				<td>AAA</td>
-			</tr>
+			</tr> -->
 		</table>
 		</div>
 	</div>
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ad162e5a826d7a37a21c4f3b4e10c85d"></script>
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d9a9dc5f180000f50bb124866e70f51a"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="http://pinnpublic.dothome.co.kr/cdn/example-min.js"></script>
-	
 	<script>
-		//지도를 담을 영역의 DOM 레퍼런스
+	
 		const container = document.getElementById('map'); 
-		
-		//지도를 생성할 때 필요한 기본 옵션
-		const options = { 
-			center: new kakao.maps.LatLng(37.499350, 127.033196), //지도의 중심좌표.
-			level: 3 //지도의 레벨(확대, 축소 정도)
+			
+		const options = {
+			center: new kakao.maps.LatLng(37.499316, 127.033192),
+			level: 3
 		};
 	
-		//지도 생성 및 객체 리턴
-		const map = new kakao.maps.Map(container, options); 
+		const map = new kakao.maps.Map(container, options);
+		
+		
+		
+		
+		
+		//클릭 이벤트 + 원하는 장소에 마커 추가하기(DB 작업 X)
 		
 		let m = null;
 		let lat = null;
 		let lng = null;
 		
-		//클릭 이벤트 + 원하느 장소에 마커 추가하기 (DB작업)XXXX
-		kakao.maps.event.addListener(map, 'click', function(evt)(){
-			lat = evt.latLng.getLat();
-			lng = evt.latLng,getLng();
+		kakao.maps.event.addListener(map, 'click', function(evt) {
 			
-			if(m != null){
+			lat = evt.latLng.getLat();
+			lng = evt.latLng.getLng();
+			
+			if (m != null) {
 				//기존 마커 제거
 				m.setMap(null);
-			}
-			const m = new kakao.maps.Marker({
-				position: new kakao.maps.LatLng(lat, lng);
+			} 
+			
+			//231107추가 -> 카테고리 확인
+			//$('#category').val() -> 아이콘 이미지명 
+			let imageUrl = '/toy/asset/marker/'+$('#category').val()+'.png';
+			let imageSize = new kakao.maps.Size(30, 30);
+			let option = {
+				//spriteOrigin: new kakao.maps.Point(10, 20),
+				//spriteSize: new kakao.maps.Size(36, 98)
+			};
+			let markerImage = new kakao.maps.MarkerImage(imageUrl, imageSize, option);
+			
+			
+			m = new kakao.maps.Marker({
+				position: new kakao.maps.LatLng(lat, lng)
 			});
-			m.setMao(map);
+			
+			m.setImage(markerImage);
+			m.setMap(map);
+			
 			$('#name').select();
 			
+		});
+		
+		
+		$('#category').change(function(){
+			//마커가 있다면 -> 아이콘 변경
+			//없다면...?
+			if(m != null){
+				let imageUrl = '/toy/asset/marker/'+$('#category').val()+'.png';
+				let imageSize = new kakao.maps.Size(30, 30);
+				let option = {
+					//spriteOrigin: new kakao.maps.Point(10, 20),
+					//spriteSize: new kakao.maps.Size(36, 98)
+				};
+				let markerImage = new kakao.maps.MarkerImage(imageUrl, imageSize, option);
+				
+				m.setImage(markerImage);
+			}
+		});
+		
+		
+		
+		//추가하기
+		$('#btn').click(function() {
 			
-			//추가하기
-			$('#btn').click(function(){
-				$.ajax({
-					type: 'POST',
-					url: '/toy/map/addplace.do',
-					data: {
-						lat: lat,
-						lng: lng,
-						name: $('#name').val(),
-						category: $('#category').val()
-					},
-					dataType: 'json',
-					success: function(result){
-						if(result.result == 1){
-							$('#category').val('default');
-							$('#name').val('');
-							$('#name').select();
-						}
-					},
-					error: function(a,b,c){
-						console.log(a,b,c);
+			$.ajax({
+				type: 'POST', 
+				url: '/toy/map/addplace.do',
+				data: {
+					lat: lat,
+					lng: lng,
+					name: $('#name').val(),
+					category: $('#category').val()
+				},
+				dataType: 'json',
+				success: function(result) {
+					
+					if (result.result == 1) {
+						
+						$('#category').val('default');
+						$('#name').val('');
+						$('#name').select();
+						
+						//추가한 목록을 아래 테이블 출력
+						load();
+						
+					} else {
+						alert('failed');
 					}
-				})
+					
+				},
+				error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+			});
+			
+		});
+		
+		
+		load();				//함수 호이스팅 
+		function load(){
+			$.ajax({
+				type: 'GET',
+				url: '/toy/map/listplace.do',
+				dataType: 'json',
+				success: function(result){
+					$('#list tbody').html('');
+					
+					$(result).each((index, item) => {
+						$('#list tbody').append(`
+							<tr>
+								<td onclick="selPlace(\${item.lat}, \${item.lng}, '\${item.category}');">
+									<span>\${item.name}</span>
+									<span title="delete" onclick="delPlace(\${item.seq});">&times;</span>
+								</td>
+							</tr>
+						`);
+					});
+				},
+				error: function(a,b,c){
+					console.log(a,b,c);
+				}
 			});
 		}
+		
+		function selPlace(lat, lng, category){
+			//해당 장소의 위도와 경도를 알아내서 마커를 출력하기 
+			//alert(lat + '   ' + lng);
+			//alert(category);
+
+			if (m != null) {
+				//기존 마커 제거
+				m.setMap(null);
+			} 
+			
+			//마커 이미지 추가
+			let imageUrl = '/toy/asset/marker/'+ category +'.png';
+			let imageSize = new kakao.maps.Size(30, 30);
+			let option = {
+				//spriteOrigin: new kakao.maps.Point(10, 20),
+				//spriteSize: new kakao.maps.Size(36, 98)
+			};
+			let markerImage = new kakao.maps.MarkerImage(imageUrl, imageSize, option);
+						
+			m = new kakao.maps.Marker({
+				position: new kakao.maps.LatLng(lat, lng)
+			});
+			
+			m.setImage(markerImage);
+			
+			m.setMap(map);
+			
+			//map.setCenter();
+			map.panTo(new kakao.maps.LatLng(lat, lng));
+			
+			$('#list td').css('background-color', 'transparent');
+			$(event.currentTarget).css('background-color', 'gold');
+		}
+		
+		function delPlace(seq){
+			//장소 삭제 
+			
+			$.ajax({
+				type: 'POST',
+				url: '/toy/map/delplace.do',
+				data: {
+					seq: seq
+				},
+				dataType: 'json',
+				success: function(result){
+					if(result.result == 1){
+						//장소 삭제 완료 
+						if(m != null){
+							//기존 마커 제거 
+							m.setMap(null);
+						}
+						load();
+					}else{
+						alert('failed');
+					}
+				},
+				error: function(a,b,c){
+					console.log(a,b,c);
+				}
+				
+			});
+			event.stopPropagation();
+			event.cancelBubble = true();
+			
+			
+		}
+	
 	</script>
 </body>
 </html>
+
+
+
+
 
 
