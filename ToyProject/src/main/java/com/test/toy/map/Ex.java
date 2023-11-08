@@ -24,6 +24,10 @@ public class Ex extends HttpServlet {
 			MapDAO dao = new MapDAO();
 			ArrayList<MapDTO> list = dao.list();
 			req.setAttribute("list", list);
+		}else if(no.equals("05")) {
+			MapDAO dao = new MapDAO();
+			ArrayList<PlaceDTO> list = dao.listPlace();
+			req.setAttribute("list", list);		
 		}
 		
 //		RequestDispatcher dispacher = req.getRequestDispatcher("/WEB-INF/views/map/ex01.jsp");
